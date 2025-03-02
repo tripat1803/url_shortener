@@ -1,0 +1,22 @@
+services:
+  db:
+    image: postgres
+    container_name: postgres_db
+    ports:
+      - 5050:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    # networks:
+    #   - app_network
+  # app:
+  #   build: .
+  #   depends_on:
+  #     - db
+  #   ports:
+  #     - 
+  #   networks:
+  #     - app_network
+    
+# networks:
+#   app_network:
