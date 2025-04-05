@@ -3,18 +3,19 @@ package main
 import (
 	"fmt"
 	"tripat3k2/url_shortner/config"
+	"tripat3k2/url_shortner/routes"
 	"tripat3k2/url_shortner/utils"
-
-	"github.com/gin-gonic/gin"
 )
 
 func main() {
-	db := config.ConnectToDB()
-	utils.MigrateModels(db)
+	config.GetConfigEnv()
+	config.ConnectToDB()
+	config.ConfigRouter()
 
-	router := gin.Default()
+	utils.MigrateModels(config.DB)
 
-	env := config.GetConfigEnv()
-	port := fmt.Sprintf(":%s", env.PORT)
-	router.Run(port)
+	routes.Init()
+
+	port := fmt.Sprintf(":%s", config.Env.PORT)
+	config.Router.Run(port)
 }

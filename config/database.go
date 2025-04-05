@@ -8,20 +8,20 @@ import (
 	"gorm.io/gorm"
 )
 
-func ConnectToDB() *gorm.DB {
-	env := GetConfigEnv()
+var DB *gorm.DB
 
-	dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=disable", env.DATABASE_HOST, env.DATABASE_USERNAME, env.DATABASE_PASSWORD, env.DATABASE_NAME, env.DATABASE_PORT)
+func ConnectToDB() {
+	dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=disable", Env.DATABASE_HOST, Env.DATABASE_USERNAME, Env.DATABASE_PASSWORD, Env.DATABASE_NAME, Env.DATABASE_PORT)
 	pgDb := postgres.New(postgres.Config{
 		DSN:                  dsn,
 		PreferSimpleProtocol: true,
 	})
 
-	db, err := gorm.Open(pgDb, &gorm.Config{})
+	var err error
+	DB, err = gorm.Open(pgDb, &gorm.Config{})
 	if err != nil {
 		log.Fatalln("Error connecting with database. Error:", err)
 	}
 
 	log.Println("Connected to database")
-	return db
 }

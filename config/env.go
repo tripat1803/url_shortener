@@ -7,29 +7,29 @@ import (
 	"github.com/joho/godotenv"
 )
 
-type Env struct {
+type EnvData struct {
 	PORT              string
 	DATABASE_HOST     string
 	DATABASE_USERNAME string
 	DATABASE_PASSWORD string
 	DATABASE_PORT     string
 	DATABASE_NAME     string
+	JWT_SECRET        string
 }
 
-var env Env
+var Env EnvData
 
-func GetConfigEnv() Env {
+func GetConfigEnv() {
 	err := godotenv.Load()
 	if err != nil {
 		log.Fatalln("Error loading .env")
 	}
 
-	env.PORT = os.Getenv("PORT")
-	env.DATABASE_HOST = os.Getenv("DATABASE_HOST")
-	env.DATABASE_USERNAME = os.Getenv("DATABASE_USERNAME")
-	env.DATABASE_PASSWORD = os.Getenv("DATABASE_PASSWORD")
-	env.DATABASE_NAME = os.Getenv("DATABASE_NAME")
-	env.DATABASE_PORT = os.Getenv("DATABASE_PORT")
-
-	return env
+	Env.PORT = os.Getenv("PORT")
+	Env.DATABASE_HOST = os.Getenv("DATABASE_HOST")
+	Env.DATABASE_USERNAME = os.Getenv("DATABASE_USERNAME")
+	Env.DATABASE_PASSWORD = os.Getenv("DATABASE_PASSWORD")
+	Env.DATABASE_NAME = os.Getenv("DATABASE_NAME")
+	Env.DATABASE_PORT = os.Getenv("DATABASE_PORT")
+	Env.JWT_SECRET = os.Getenv("JWT_SECRET")
 }
