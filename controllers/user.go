@@ -67,8 +67,8 @@ func LoginUser(c *gin.Context) {
 		return
 	}
 
-	user := LoginUserDTO{}
-	result := config.DB.Select("email", "name", "password", "id").Where("email = ?", obj.Email).Limit(1).Model(&models.User{}).Find(&user)
+	user := &LoginUserDTO{}
+	result := config.DB.Select("email", "name", "password", "id").Where("email = ?", obj.Email).Limit(1).Model(&models.User{}).Find(user)
 	if result.Error != nil {
 		c.JSON(http.StatusNotFound, result.Error.Error())
 		return
